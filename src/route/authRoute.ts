@@ -15,13 +15,9 @@ app.get('/public', (req, res) =>{
     res.json({message: 'public route'})
 } )
 
-app.get('/user', authenticate, (req, res) =>{
-    res.json({message: 'this route is protected for user'});
-})
+app.get('/user', authenticate)
 
-app.get('/api/contract', authorize(['admin']), (req, res) =>{
-    res.json({message: 'this route is protected for user'});
-})
+app.get('/api/contract', authorize(['admin']))
 
 
 app.listen(PORT, () => {

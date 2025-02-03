@@ -16,6 +16,7 @@ export const authenticate = (req: request,  res: Response, next: NextFunction) =
     try{
         // Get token from the Header
         const token = req.header('Authorization');
+        console.log(token)
         if (!token) {
             res.status(400).json({message: 'token Needed'});
             return;
