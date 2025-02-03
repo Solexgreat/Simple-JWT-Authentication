@@ -1,10 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-const SECRET_KEY = 'your_scret_key';
+const SECRET_KEY = 'your_scret_key'; //This should be in an .env or config folder
 
 interface request extends Request {
-    user?: any;
+    user?: {
+      id: string;
+      email: string;
+      role: string;
+    };
   }
 
 interface User {

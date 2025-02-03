@@ -1,10 +1,14 @@
 import {  Response, NextFunction, Request } from 'express';
 import jwt from 'jsonwebtoken'
 
-const SECRET_KEY = 'your_secret_key';
+const SECRET_KEY = 'your_secret_key'; //This should be in an .env or config folder
 
 interface request extends Request {
-    user?: any;
+    user?: {
+        id: string;
+        email: string;
+        role: string;
+      };
   }
 
 export const authenticate = (req: request,  res: Response, next: NextFunction) => {
@@ -24,7 +28,11 @@ export const authenticate = (req: request,  res: Response, next: NextFunction) =
         const decode = jwt.verify(jwtToken, SECRET_KEY) as { sub: string; email: string; role: string };;
 
         // attach the decode user data to the request
-        req.user = decode;
+        req.user = {
+            id: decode.sub,
+            email: decode.email,
+            role: decode.role,
+          };;
         next()
 
     } catch (err) {
